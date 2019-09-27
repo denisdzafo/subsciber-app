@@ -5,10 +5,7 @@
 @section('content')
 @section('body_class','subscribe')
 
-
-
       <div class="container">
-
         <div class="row">
           <div class="col-lg-8 mx-auto">
             @foreach (['danger', 'warning', 'success', 'info','error'] as $key)
@@ -25,8 +22,7 @@
                   </div>
                </div>
 
-
-               <button type="submit" class="btn btn-primary">Unubscribe</button>
+             <button type="submit" class="btn btn-primary">Unubscribe</button>
             </form>
           </div>
         </div>

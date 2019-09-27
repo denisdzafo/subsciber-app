@@ -16,7 +16,7 @@
                <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
                @endif
             @endforeach
-            <form method="post" action="{{route('email.submit')}}" >
+            <form method="post" action="{{route('paypal')}}" >
                <input type="hidden" name="_token" value="{{csrf_token()}}">
                <div class="form-row">
                   <div class="form-group col-md-12">
@@ -28,7 +28,8 @@
 
                <button type="submit" class="btn btn-primary">Subscribe</button>
             </form>
-          </div>
+
+        </div>
         </div>
       </div>
 

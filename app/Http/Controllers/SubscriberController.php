@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Subscriber;
 use Illuminate\Http\Request;
 use Session;
-
+use App\Mail\NewSubscriber;
+use Illuminate\Support\Facades\Mail;
 class SubscriberController extends Controller
 {
     public function emailSubmit(Request $request)
@@ -23,22 +24,19 @@ class SubscriberController extends Controller
           return redirect()->route('index.page');
     }
 
-    public function emailUnsubscribe(Request $request)
+    public function emailUnsubscribe($id)
     {
-      $this->validate($request, [
-            'email' => 'required|email'
-        ]);
 
-        $subscriber=Subscriber::where('email','=',$request->email)->first();
+        $subscriber=Subscriber::find($id);
         if($subscriber){
           $subscriber = Subscriber::destroy($subscriber->id);
 
           Session::flash('success', "You have been successfully unsubscribed.");
-          return redirect()->route('unsubscribe.page');
+          return redirect()->route('index.page');
         }
         else{
           Session::flash('warning', "We don't have this email in database.");
-          return redirect()->route('unsubscribe.page');
+          return redirect()->route('index.page');
         }
 
     }

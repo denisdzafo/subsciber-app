@@ -16,5 +16,10 @@ Auth::routes();
 Route::get('/','PageController@getIndex')->name('index.page');
 Route::get('/unsubscribe','PageController@getUnsubscribe')->name('unsubscribe.page');
 
+
 Route::post('email/submit','SubscriberController@emailSubmit')->name('email.submit');
-Route::post('email/unsubscribe','SubscriberController@emailUnsubscribe')->name('email.unsubscribe');
+Route::get('email/unsubscribe/{id}','SubscriberController@emailUnsubscribe')->name('email.unsubscribe');
+
+Route::post('paypal', 'PaymentController@payWithpaypal')->name('paypal');
+
+Route::get('status', 'PaymentController@getPaymentStatus');
