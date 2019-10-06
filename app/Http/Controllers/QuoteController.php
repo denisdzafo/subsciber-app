@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Quote;
 use Illuminate\Http\Request;
+use Session;
 
 class QuoteController extends Controller
 {
@@ -14,7 +15,7 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.create-quote');
     }
 
     /**
@@ -24,7 +25,7 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +36,17 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, array(
+        'quote'=>'required'
+      ));
+
+      $quote=new Quote();
+      $quote->quote=$request->quote;
+
+      $quote->save();
+
+      Session::flash('success', 'Qoute has been successfully added.');
+      return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -44,9 +55,10 @@ class QuoteController extends Controller
      * @param  \App\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function show(Quote $quote)
+    public function show($id)
     {
-        //
+        $quote=Quote::find($id);
+        return view('pages.single-quote')->withQuote($quote);
     }
 
     /**
@@ -55,9 +67,10 @@ class QuoteController extends Controller
      * @param  \App\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function edit(Quote $quote)
+    public function edit($id)
     {
-        //
+      $quote=Quote::find($id);
+      return view('pages.edit-quote')->withQuote($quote);
     }
 
     /**
@@ -67,9 +80,18 @@ class QuoteController extends Controller
      * @param  \App\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Quote $quote)
+    public function update(Request $request, $id)
     {
-        //
+        $quote=Quote::find($id);
+        $this->validate($request, array(
+          'quote'=>'required'
+        ));
+
+        $quote->quote=$request->quote;
+        $quote->save();
+
+        Session::flash('success', 'Qoute has been successfully updated.');
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -78,8 +100,12 @@ class QuoteController extends Controller
      * @param  \App\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Quote $quote)
+    public function destroy($id)
     {
-        //
+        $quote=Quote::find($id);
+        $quote->delete();
+
+        Session::flash('success', 'Qoute has been successfully deleted.');
+        return redirect()->route('admin.dashboard');
     }
 }

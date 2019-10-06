@@ -1,9 +1,9 @@
 @extends('welcome')
 
-@section('title','Subscriber')
+@section('title','Account Reactivation')
 
 @section('content')
-@section('body_class','subscribe')
+@section('body_class','account-reactivation')
 
 
 
@@ -16,7 +16,7 @@
                <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
                @endif
             @endforeach
-            <form method="post" action="{{route('paypal')}}" >
+            <form method="post" action="{{route('account.reactivate')}}" >
                <input type="hidden" name="_token" value="{{csrf_token()}}">
                <div class="form-row">
                   <div class="form-group col-md-12">
@@ -26,7 +26,7 @@
                </div>
 
 
-               <button type="submit" class="btn btn-primary">Subscribe</button>
+               <button type="submit" class="btn btn-primary">Reactivate</button>
             </form>
 
         </div>
